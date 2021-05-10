@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { Avatar } from '@material-ui/core';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../context/auth-context';
 import './Nav.css';
 
 function Nav() {
     const [show, setShow] = useState(false);
-
+    const authContext = useContext(AuthContext);
+    
     useEffect(() => {
-        window.addEventListener("scroll", () => {
+        const listener = window.addEventListener("scroll", () => {
             if(window.scrollY > 100){
                 setShow(true);
             }else{
@@ -14,7 +17,7 @@ function Nav() {
         });
         
         return () => {
-          window.removeEventListener("scroll");
+          window.removeEventListener("scroll", listener);
         }
     }, []);
 
@@ -23,15 +26,11 @@ function Nav() {
             <img
                 className="nav__logo"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png"
-                alt="Netflix Logo"
-            />
-            <img
-                className="nav__avatar"
-                src="https://i.pinimg.com/originals/0d/dc/ca/0ddccae723d85a703b798a5e682c23c1.png"
-                alt="Avatar"
-            />
+                alt="Netflix Logo"/>
+                
+            {authContext.user && <Avatar className="nav__avatar" src={authContext.user && authContext.user.photoURL} alt={authContext.user.displayName}/>}
         </div>
     )
 }
 
-export default Nav
+export default Nav;

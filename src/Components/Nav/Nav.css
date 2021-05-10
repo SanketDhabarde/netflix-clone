@@ -7,6 +7,7 @@
     top: 0;
     height: 30px;
     z-index: 1;
+    align-items: center;
 
     /* Animations */
   transition-timing-function: ease-in;
@@ -24,8 +25,7 @@
     object-fit: contain;
 }
 
-.nav__avatar{
-    position: fixed;
-    right: 20px;
-    width: 30px;
+.nav__avatar, .MuiAvatar-root{
+    position: fixed !important;
+    right: 20px !important;
 }
