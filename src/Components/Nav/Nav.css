@@ -19,13 +19,38 @@
 }
 
 .nav__logo{
-    width: 80px;
-    position: fixed;
-    left: 20px;
+    width: 90px;
     object-fit: contain;
+}
+.nav__right{
+    display: flex;
+    margin-right: 30px;
+    object-fit: contain;
+    align-items: flex-end;
 }
 
 .nav__avatar, .MuiAvatar-root{
-    position: fixed !important;
-    right: 20px !important;
+    margin-left: 10px;
+}
+ 
+.nav__logout{
+    background-color: #e50914;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 7px 17px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.nav__wishlist{
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    margin-right: 20px;
+    padding: 7px 17px;
+    font-size: 1rem;
+    font-weight: 400;
+    border-radius: 5px;
+    cursor: pointer;
 }

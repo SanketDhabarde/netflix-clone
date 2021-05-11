@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 import Nav from '../Nav/Nav';
 import './Login.css';
@@ -18,8 +19,9 @@ function Login() {
                 <h1 className="login__contentsTitle">Unlimited movies, TV shows and more</h1>
                 <h2 className="login__subtitles">Watch anywhere. Cancel anytime.</h2>
                 <h3 className="login__title">Ready to watch? login with Google.</h3>
-                <button className="login__button" onClick={loginHandler}><span><img className="google__icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/768px-Google_%22G%22_Logo.svg.png"/></span>Login with Google</button>
-              
+                <Link to="/home">
+                     <button className="login__button" onClick={loginHandler}><span><img className="google__icon" alt="google icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/768px-Google_%22G%22_Logo.svg.png"/></span>Login with Google</button>
+                </Link>
             </div>
             <div className="login__footerFaded"></div>
         </div>
