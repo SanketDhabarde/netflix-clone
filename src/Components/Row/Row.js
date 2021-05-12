@@ -1,21 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import axios from "../../axios";
 import "./Row.css";
-import AddIcon from '@material-ui/icons/Add';
-
+import AddIcon from "@material-ui/icons/Add";
+import db from "../../firebase";
+import { AuthContext } from "../../context/auth-context";
+import firebase from 'firebase';
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
 
 function Row({ title, fetchURL, isLargeRow }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(fetchURL).then((response) => {
+     axios.get(fetchURL).then((response) => {
       setMovies(response.data.results);
     });
   }, [fetchURL]);
+
+  // to add the user for watchlist
+  useEffect(() => {
+    db.collection("users").doc(authContext.user.uid).set({
+      uid: authContext.user.uid,
+      name: authContext.user.displayName,
+    });
+  }, [authContext.user.uid, authContext.user.displayName]);
 
   const opts = {
     height: "390px",
@@ -41,13 +52,25 @@ function Row({ title, fetchURL, isLargeRow }) {
     }
   };
 
+  const addMovieToWatchList = (movie) => {
+    if(movie){
+      db.collection("users")
+      .doc(authContext.user.uid)
+      .collection("watchlist").doc(`${movie.id}`)
+      .set({
+        movie,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+  };
+
   return (
     <div className="row">
       <h2>{title}</h2>
       <div className="row__posters">
         {movies.map((movie) => (
           <>
-             <img
+            <img
               key={movie.id}
               className={`row__poster ${isLargeRow && "row__posterLarge"}`}
               onClick={() => handleClick(movie)}
@@ -56,9 +79,8 @@ function Row({ title, fetchURL, isLargeRow }) {
               }`}
               alt={movie.title}
             />
-           <AddIcon/>
+            <AddIcon onClick={() => addMovieToWatchList(movie)} className="row__posterAdd"/>
           </>
-           
         ))}
       </div>
       {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}

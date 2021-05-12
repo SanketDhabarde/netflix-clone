@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/auth-context';
 import './Nav.css';
 import { Link, useHistory } from 'react-router-dom';
 
-function Nav() {
+function Nav({watchlist}) {
     const [show, setShow] = useState(false);
     const authContext = useContext(AuthContext);
     const history = useHistory();
@@ -35,7 +35,8 @@ function Nav() {
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png"
                 alt="Netflix Logo"/>
             <div className="nav__right">
-                {authContext.user && <Link to="/watchlist"><button className="nav__wishlist">WishList</button></Link>}  
+                {watchlist && <Link to="/home"><button className="nav__wishlist">home</button></Link>}
+                {authContext.user && !watchlist && <Link to="/watchlist"><button className="nav__wishlist">WatchList</button></Link>}  
                 {authContext.user && <button onClick={logoutHandler} className="nav__logout">Logout</button>}    
                 {authContext.user && <Avatar className="nav__avatar" src={authContext.user && authContext.user.photoURL} alt={authContext.user.displayName}/>}
             </div>
