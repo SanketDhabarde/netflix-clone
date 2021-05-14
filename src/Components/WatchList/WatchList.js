@@ -5,7 +5,7 @@ import db from "../../firebase";
 import Nav from "../Nav/Nav";
 import "./WatchList.css";
 
-const baseImgUrl = "https://image.tmdb.org/t/p/original";
+const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
 function WatchList() {
   const [movies, setMovies] = useState([]);
@@ -55,31 +55,27 @@ function WatchList() {
   };
   
   return (
-    <div>
+    <div className="list">
       <Nav watchlist />
+      <div className="list__title">
+      <h2 style={{color: 'white', fontWeight: '400'}}>My List</h2>
+      </div>
       <div className="movie__container">
         {movies.map((movie) => (
           <div key={movie.movie.id} className="movie">
             <img
-              src={`${baseImgUrl + movie.movie.poster_path}`}
+              src={`${baseImgUrl + movie.movie.backdrop_path}`}
               alt={movie.name}
             />
             <div className="movie__info">
-              <h4>
-                {movie.movie.name ||
-                  movie.movie.title ||
-                  movie.movie.original_name}
-              </h4>
-              <span className={`tag ${setClassName(movie.movie.vote_average)}`}>
-                {movie.movie.vote_average}
+              <span className={`${setClassName(movie.movie.vote_average)}`}>
+              ⭐{movie.movie.vote_average}
               </span>
-              <div className="movie__infoRight">
-                <Edit className="tag movie__note" />
-                <Clear
-                  className="tag movie__note"
-                  onClick={() => removeMovieFromWatchList(movie.movie.id)}
-                />
-              </div>
+              <Edit className="tag movie__note" />
+              <Clear
+                className="tag movie__note"
+                onClick={() => removeMovieFromWatchList(movie.movie.id)}
+              />
             </div>
           </div>
         ))}

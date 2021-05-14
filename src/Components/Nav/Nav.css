@@ -21,6 +21,7 @@
 .nav__logo{
     width: 90px;
     object-fit: contain;
+    margin-left: 1rem;
 }
 .nav__right{
     display: flex;
@@ -43,14 +44,21 @@
     font-size: 1rem;
     font-weight: 400;
 }
+.nav__items{
+    display: flex;
+    flex: 1;
+    margin-left: 2rem;
+}
 .nav__wishlist{
     background-color: transparent;
+    border: none;
     color: white;
-    border: 1px solid white;
-    margin-right: 20px;
-    padding: 7px 17px;
-    font-size: 1rem;
+    margin-right: 10px;
+    font-size: 0.8rem;
     font-weight: 400;
-    border-radius: 5px;
     cursor: pointer;
+}
+
+.nav__linkActive > button{
+    font-weight: 700;
 }

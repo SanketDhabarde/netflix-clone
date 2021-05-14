@@ -8,6 +8,7 @@ import { AuthContext } from './context/auth-context';
 import request from './request';
 import {BrowserRouter, Route} from 'react-router-dom';
 import WatchList from './Components/WatchList/WatchList';
+import Anime from './Components/Anime/Anime';
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -22,8 +23,8 @@ function App() {
       ):(
         <div>
           <BrowserRouter>
-          <Route path="/home">
-            <Nav/>
+            <Route path="/home">
+              <Nav/>
               <Banner/>
               <Row title="NETFLIX ORIGINALS" fetchURL={request.fetchNetflixOriginals} isLargeRow/>
               <Row title="Trending Now" fetchURL={request.fetchTrending}/>
@@ -34,11 +35,18 @@ function App() {
               <Row title="Romance Movies" fetchURL={request.fetchRomanceMovies}/>
               <Row title="Documentaries" fetchURL={request.fetchDocumentaries}/>
             </Route>
+            <Route path="/tv">
+              <Nav/>
+              <Banner tv/>
+              <Row tv title="AIRING TODAY" fetchURL={request.featchAiringTodayTv} isLargeRow/>
+              <Row tv title="Popular Shows" fetchURL={request.fetchPopularTv}/>
+              <Row tv title="Trending Shows" fetchURL={request.fetchTrendingTv}/>
+              <Row tv title="Top Rated" fetchURL={request.fetchTopRatedTv}/>  
+            </Route>
             <Route path="/watchlist">
               <WatchList/>
             </Route>
           </BrowserRouter>
-            
         </div> )
       }
     </div>

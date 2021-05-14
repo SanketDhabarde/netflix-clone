@@ -9,7 +9,7 @@ import firebase from 'firebase';
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
 
-function Row({ title, fetchURL, isLargeRow }) {
+function Row({tv, title, fetchURL, isLargeRow }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
   const authContext = useContext(AuthContext);
@@ -41,7 +41,17 @@ function Row({ title, fetchURL, isLargeRow }) {
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
-      axios
+      if(tv){
+        axios
+        .get(
+          `/tv/${movie.id}/videos?api_key=9abece2b3fd2ebefc230ea2ce46c4bef&language=en-US`
+        )
+        .then((res) => {
+          setTrailerUrl(res.data.results[0]?.key);
+        })
+        .catch((error) => console.log(error));
+      }else{
+        axios
         .get(
           `/movie/${movie.id}/videos?api_key=9abece2b3fd2ebefc230ea2ce46c4bef`
         )
@@ -49,6 +59,8 @@ function Row({ title, fetchURL, isLargeRow }) {
           setTrailerUrl(res.data.results[0]?.key);
         })
         .catch((error) => console.log(error));
+      }
+      
     }
   };
 
@@ -68,7 +80,7 @@ function Row({ title, fetchURL, isLargeRow }) {
     <div className="row">
       <h2>{title}</h2>
       <div className="row__posters">
-        {movies.map((movie) => (
+        {movies?.map((movie) => (
           <>
             <img
               key={movie.id}

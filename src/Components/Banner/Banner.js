@@ -3,17 +3,28 @@ import axios from "../../axios";
 import request from "../../request";
 import "./Banner.css";
 
-function Banner() {
+function Banner({tv}) {
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
-    axios.get(request.fetchNetflixOriginals).then((response) => {
-      setMovie(
-        response.data.results[
-          Math.floor(Math.random() * response.data.results.length - 1)
-        ]
-      );
-    });
+    if(tv){
+      axios.get(request.fetchPopularTv).then((response) => {
+        setMovie(
+          response.data.results[
+            Math.floor(Math.random() * response.data.results.length - 1)
+          ]
+        );
+      });
+    }else{
+      axios.get(request.fetchNetflixOriginals).then((response) => {
+        setMovie(
+          response.data.results[
+            Math.floor(Math.random() * response.data.results.length - 1)
+          ]
+        );
+      });
+    }
+    
   }, []);
 
   return (
@@ -25,7 +36,7 @@ function Banner() {
       }}
     >
       <div className="banner__contents">
-        <h1 className="banner__title">{movie?.title || movie?.original_name || movie?.name}</h1>
+        <h1 className="banner__title">{movie?.name || movie?.title || movie?.original_name}</h1>
         <div className="banner__buttons">
           <button className="banner__button">Play</button>
           <button className="banner__button">my list</button>
