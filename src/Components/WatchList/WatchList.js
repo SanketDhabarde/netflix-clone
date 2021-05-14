@@ -4,11 +4,14 @@ import { AuthContext } from "../../context/auth-context";
 import db from "../../firebase";
 import Nav from "../Nav/Nav";
 import "./WatchList.css";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Modal from "../Modal/Modal";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
 function WatchList() {
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -26,15 +29,7 @@ function WatchList() {
     };
   }, [authContext.user.uid]);
 
-  const setClassName = (vote) => {
-    if (vote >= 8) {
-      return "green";
-    } else if (vote >= 6) {
-      return "orange";
-    } else {
-      return "red";
-    }
-  };
+  
 
   const removeMovieFromWatchList = (id) => {
     if (
@@ -68,18 +63,22 @@ function WatchList() {
               alt={movie.name}
             />
             <div className="movie__info">
-              <span className={`${setClassName(movie.movie.vote_average)}`}>
-              ⭐{movie.movie.vote_average}
-              </span>
-              <Edit className="tag movie__note" />
-              <Clear
-                className="tag movie__note"
-                onClick={() => removeMovieFromWatchList(movie.movie.id)}
-              />
+              <div>
+                <Edit className="tag movie__note" />
+                <Clear
+                  className="tag movie__note"
+                  onClick={() => removeMovieFromWatchList(movie.movie.id)}
+                />
+              </div>
+              <div>
+                <ExpandMoreIcon className="tag movie__note" onClick={() => setSelectedMovie(movie.movie)}/>
+              </div>
+              
             </div>
           </div>
         ))}
       </div>
+      {selectedMovie && <Modal selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
     </div>
   );
 }

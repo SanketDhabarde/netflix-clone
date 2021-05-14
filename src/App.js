@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import Banner from './Components/Banner/Banner';
 import Login from './Components/Login/Login';
@@ -8,7 +8,8 @@ import { AuthContext } from './context/auth-context';
 import request from './request';
 import {BrowserRouter, Route} from 'react-router-dom';
 import WatchList from './Components/WatchList/WatchList';
-import Anime from './Components/Anime/Anime';
+
+
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -43,7 +44,7 @@ function App() {
               <Row tv title="Trending Shows" fetchURL={request.fetchTrendingTv}/>
               <Row tv title="Top Rated" fetchURL={request.fetchTopRatedTv}/>  
             </Route>
-            <Route path="/watchlist">
+            <Route path="/watchlist">  
               <WatchList/>
             </Route>
           </BrowserRouter>

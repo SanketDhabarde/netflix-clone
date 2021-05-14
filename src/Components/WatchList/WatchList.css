@@ -51,7 +51,8 @@ body{
 .movie:hover .movie__info{
     display: flex;
     padding: 0.5rem;
-    align-items: center;
+    align-items:center;
+    justify-content: space-between;
     transform: scale(1.05);
 }
 

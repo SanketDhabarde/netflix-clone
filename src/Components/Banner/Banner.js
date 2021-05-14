@@ -25,7 +25,7 @@ function Banner({tv}) {
       });
     }
     
-  }, []);
+  }, [tv]);
 
   return (
     <header
