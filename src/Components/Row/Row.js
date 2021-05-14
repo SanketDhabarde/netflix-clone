@@ -6,6 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import db from "../../firebase";
 import { AuthContext } from "../../context/auth-context";
 import firebase from 'firebase';
+import { PlayArrow } from "@material-ui/icons";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
 

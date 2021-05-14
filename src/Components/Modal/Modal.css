@@ -19,6 +19,10 @@
     overflow-x: hidden;
 }
 
+.modal::-webkit-scrollbar{
+    display: none !important;
+}
+
 .modal img{
   display: block;
   width: 100%;

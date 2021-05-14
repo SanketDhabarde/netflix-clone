@@ -21,10 +21,7 @@
     transition: transform 450ms;
     position: relative;
 }
-.row__poster + .MuiSvgIcon-root{
-    display: none !important;
-    transition: 450ms;
-}
+
 .row__posterAdd{
     cursor: pointer;
 }
@@ -34,9 +31,7 @@
 .row__poster:hover{
     transform: scale(1.08);
 }
-.row__poster:hover + .MuiSvgIcon-root{
-    display: inherit !important;
-}
+
 .row__posterAdd{
     height: 20px;
 }
