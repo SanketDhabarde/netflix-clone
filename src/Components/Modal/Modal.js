@@ -25,7 +25,7 @@ function Modal({selectedMovie, setSelectedMovie}) {
     return (
         <div className="backdrop" onClick={clickHandler}>
             <div className="modal">
-                <img src={`${baseImgUrl + selectedMovie.poster_path}`} alt=""/>
+                <img src={`${baseImgUrl + selectedMovie.backdrop_path}`} alt=""/>
                 <div className="modal__movieInfo">
                     <h2>{selectedMovie.name || selectedMovie.title || selectedMovie.original_name}</h2>
                     <p className={`${setClassName(selectedMovie.vote_average)}`}>

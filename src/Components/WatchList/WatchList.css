@@ -15,7 +15,7 @@ body{
     margin: 0.3rem;
     margin-bottom: 3rem;
     border-radius: 3px;
-    box-shadow: 3px 3px 7px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.5);
     position: relative;
     transition: transform 450ms;
     overflow: hidden;
@@ -72,3 +72,4 @@ body{
 .red{
     color: red;
 }
+

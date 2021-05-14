@@ -1,4 +1,4 @@
-import { Clear, Edit } from "@material-ui/icons";
+import { Clear, PlayArrow } from "@material-ui/icons";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth-context";
 import db from "../../firebase";
@@ -64,7 +64,7 @@ function WatchList() {
             />
             <div className="movie__info">
               <div>
-                <Edit className="tag movie__note" />
+                <PlayArrow className="tag movie__note" />
                 <Clear
                   className="tag movie__note"
                   onClick={() => removeMovieFromWatchList(movie.movie.id)}
