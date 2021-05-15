@@ -75,8 +75,13 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         movie,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-
-      toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
+      
+      if(tv){
+        toast.success("Show Added to your watchlist successfully", {position: 'top-center'});
+      }else{
+        toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
+      }
+      
     }
   };
 
