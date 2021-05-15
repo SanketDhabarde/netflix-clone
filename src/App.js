@@ -9,7 +9,10 @@ import request from './request';
 import {BrowserRouter, Route} from 'react-router-dom';
 import WatchList from './Components/WatchList/WatchList';
 import Search from './Components/Search/Search';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 
 function App() {
   const authContext = useContext(AuthContext);

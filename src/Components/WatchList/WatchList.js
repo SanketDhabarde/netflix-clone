@@ -6,6 +6,7 @@ import Nav from "../Nav/Nav";
 import "./WatchList.css";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Modal from "../Modal/Modal";
+import { toast } from "react-toastify";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -45,7 +46,10 @@ function WatchList() {
         .then(() => {
           console.log("deleted successfully");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          toast.error("Something went wrong", {position: 'top-center'});
+        });
     }
   };
   

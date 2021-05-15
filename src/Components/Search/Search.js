@@ -7,6 +7,7 @@ import { AuthContext } from "../../context/auth-context";
 import db from '../../firebase';
 import firebase from 'firebase/app';
 import Modal from "../Modal/Modal";
+import { toast } from "react-toastify";
 
 const SEARCH_API =
   "https://api.themoviedb.org/3/search/movie?api_key=9abece2b3fd2ebefc230ea2ce46c4bef&language=en-US&page=1&include_adult=false&query=";
@@ -40,6 +41,8 @@ function Search() {
         movie,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
+
+      toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
     }
   };
 
@@ -62,9 +65,8 @@ function Search() {
 
       <div className="search__movies">
           {movies.map(movie => (
-              <div className="search__poster">
+              <div className="search__poster" key={movie.id}>
                 <img
-                    key={movie.id}
                     className="search__posterImg"
                     src={`${baseImgUrl + movie.poster_path}`}
                     alt={movie.title}

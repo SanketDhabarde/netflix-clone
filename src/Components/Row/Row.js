@@ -6,6 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import db from "../../firebase";
 import { AuthContext } from "../../context/auth-context";
 import firebase from 'firebase/app';
+import {toast} from 'react-toastify';
 
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
@@ -74,6 +75,8 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         movie,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
+
+      toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
     }
   };
 
