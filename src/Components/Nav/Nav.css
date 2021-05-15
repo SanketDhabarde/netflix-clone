@@ -8,6 +8,7 @@
     height: 30px;
     z-index: 1;
     align-items: center;
+    overflow: scroll;
 
     /* Animations */
   transition-timing-function: ease-in;
@@ -62,4 +63,8 @@
 
 .nav__linkActive > button{
     font-weight: 700;
+}
+
+.nav::-webkit-scrollbar{
+    display: none !important;
 }
