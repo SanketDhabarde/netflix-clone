@@ -8,7 +8,7 @@ import { AuthContext } from './context/auth-context';
 import request from './request';
 import {BrowserRouter, Route} from 'react-router-dom';
 import WatchList from './Components/WatchList/WatchList';
-
+import Search from './Components/Search/Search';
 
 
 function App() {
@@ -46,6 +46,9 @@ function App() {
             </Route>
             <Route path="/watchlist">  
               <WatchList/>
+            </Route>
+            <Route path="/search">
+              <Search/>
             </Route>
           </BrowserRouter>
         </div> )

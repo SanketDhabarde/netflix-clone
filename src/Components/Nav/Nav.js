@@ -2,9 +2,10 @@ import { Avatar} from '@material-ui/core';
 import React, { useState, useEffect, useContext} from 'react';
 import { AuthContext } from '../../context/auth-context';
 import './Nav.css';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { SearchOutlined } from '@material-ui/icons';
 
-function Nav({watchlist}) {
+function Nav() {
     const [show, setShow] = useState(false);
     const authContext = useContext(AuthContext);
     const history = useHistory();
@@ -40,6 +41,7 @@ function Nav({watchlist}) {
                 {authContext.user && <NavLink to="/watchlist" activeClassName="nav__linkActive"><button className="nav__wishlist">My List</button></NavLink>}
             </div>
             <div className="nav__right">
+                {authContext.user && <Link to="/search"><SearchOutlined style={{color: 'white', marginRight: '1rem'}}/></Link>}
                 {authContext.user && <button onClick={logoutHandler} className="nav__logout">Logout</button>}    
                 {authContext.user && <Avatar className="nav__avatar" src={authContext.user && authContext.user.photoURL} alt={authContext.user.displayName}/>}
             </div>

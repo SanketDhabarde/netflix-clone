@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import request from "../../request";
 import "./Banner.css";
+import Modal from '../Modal/Modal';
 
 function Banner({tv}) {
   const [movie, setMovie] = useState([]);
+  const [selectedMovie, setSelectedMovie]= useState(null);
 
   useEffect(() => {
     if(tv){
@@ -27,6 +29,12 @@ function Banner({tv}) {
     
   }, [tv]);
 
+  const moreInfoHandler = (movie) => {
+    if(movie){
+      setSelectedMovie(movie);
+    }
+  }
+
   return (
     <header
       className="banner"
@@ -39,13 +47,14 @@ function Banner({tv}) {
         <h1 className="banner__title">{movie?.name || movie?.title || movie?.original_name}</h1>
         <div className="banner__buttons">
           <button className="banner__button">Play</button>
-          <button className="banner__button">More Info</button>
+          <button className="banner__button" onClick={() => moreInfoHandler(movie)}>More Info</button>
         </div>
         <div className="banner__description">{movie?.overview}</div>
       </div>
       <div className="banner__fadeBottom">
 
       </div>
+      {selectedMovie && <Modal selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
     </header>
   );
 }
