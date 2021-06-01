@@ -4,7 +4,7 @@ import './Modal.css';
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
-function Modal({selectedMovie, setSelectedMovie, search}) {
+function Modal({selectedMovie, setSelectedMovie}) {
 
     const clickHandler = (event) => {
         if(event.target.classList.contains('backdrop')){
@@ -25,7 +25,7 @@ function Modal({selectedMovie, setSelectedMovie, search}) {
     return (
         <div className="backdrop" onClick={clickHandler}>
             <div className="modal">
-                <img src={`${search ? baseImgUrl + selectedMovie.poster_path : baseImgUrl + selectedMovie.backdrop_path}`} alt=""/>
+                <img src={`${selectedMovie.backdrop_path ? baseImgUrl + selectedMovie.backdrop_path : baseImgUrl + selectedMovie.poster_path}`} alt=""/>
                 <div className="modal__movieInfo">
                     <h2>{selectedMovie.name || selectedMovie.title || selectedMovie.original_name}</h2>
                     <p className={`${setClassName(selectedMovie.vote_average)}`}>

@@ -80,7 +80,7 @@ function Search() {
               </div>
            ))}
       </div>
-      {selectedMovie && <Modal search selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
+      {selectedMovie && <Modal selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
     </div>
   );
 }
