@@ -85,7 +85,7 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         movie,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-      toast.success(`${movie.name} Added to your watchlist successfully`, {position: 'top-center'});
+      toast.success(`${movie.name || movie.title || movie.original_name} Added to your watchlist successfully`, {position: 'top-center'});
     }
   };
 

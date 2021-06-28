@@ -42,7 +42,7 @@ function Search() {
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
 
-      toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
+      toast.success(`${movie.name || movie.title || movie.original_name} Added to your watchlist successfully`, {position: 'top-center'});
     }
   };
 
@@ -72,9 +72,9 @@ function Search() {
                     alt={movie.title}
                 />
                 <div className="search__movieOption">
-                    <AddIcon onClick={() => addMovieToWatchList(movie)} className="tag search__posterAdd"/>
+                    <AddIcon onClick={() => addMovieToWatchList(movie)} className="tag"/>
                     <div>
-                        <ExpandMoreIcon className="tag search__posterAdd" onClick={() => setSelectedMovie(movie)}/>
+                        <ExpandMoreIcon className="tag" onClick={() => setSelectedMovie(movie)}/>
                     </div>
                 </div> 
               </div>
