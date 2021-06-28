@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { toast } from 'react-toastify';
 import {auth, provider} from '../firebase';
 
 export const AuthContext = React.createContext({
@@ -10,12 +11,24 @@ export const AuthContext = React.createContext({
 const AuthContextProvider = props => {
     const [user, setUser] = useState(null);
 
+    useEffect(() => {
+       const unsub = auth.onAuthStateChanged(authUser => {
+            if(authUser){
+                setUser(authUser);
+            }else{
+                setUser(null)
+            }
+        })
+        return () => {
+            unsub();
+        }
+    }, [user]);
+
     const loginHandler = () =>{
         auth.signInWithPopup(provider)
-            .then(result => {
-                setUser(result.user);
-            })
-            .catch(error => console.log(error))
+        .catch((error) => {
+            toast.error(error.message, {position: 'top-center'});
+          });
     }
 
     const logoutHandler =() =>{

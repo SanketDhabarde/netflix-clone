@@ -12,10 +12,10 @@ body{
 .movie{
     width: 220px;
     background-color: #111;
-    margin: 0.3rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     margin-bottom: 3rem;
     border-radius: 3px;
-    box-shadow: 3px 3px 7px rgba(0,0,0,0.5);
     position: relative;
     transition: transform 450ms;
     overflow: hidden;
@@ -29,7 +29,8 @@ body{
 }
 
 .movie:hover{
-    transform: scale(1.06);
+    transform: scale(1.12);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.5);
 }
 
 .movie img{
@@ -45,7 +46,6 @@ body{
 
 .movie__info{
     display: none;
-    transition: transfrom 450ms;
 }
 
 .movie:hover .movie__info{
@@ -53,9 +53,30 @@ body{
     padding: 0.5rem;
     align-items:center;
     justify-content: space-between;
-    transform: scale(1.05);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(37, 37, 37, 0.61),
+      #111
+    );
+    height: 2.5rem;
 }
 
+.backdrop{
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.youtube__trailer{
+    margin: 90px 10%;
+}
 
 .tag{
     padding: 0.2rem;

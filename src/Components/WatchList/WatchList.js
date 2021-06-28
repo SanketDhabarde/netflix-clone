@@ -7,12 +7,15 @@ import "./WatchList.css";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Modal from "../Modal/Modal";
 import { toast } from "react-toastify";
+import YouTube from "react-youtube";
+import axios from "../../axios";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
 function WatchList() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [trailerUrl, setTrailerUrl] = useState("");
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -30,7 +33,32 @@ function WatchList() {
     };
   }, [authContext.user.uid]);
 
-  
+  const opts = {
+    height: "390px",
+    width: "80%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
+  const handleClick = (movie) => {
+    if (trailerUrl) {
+      setTrailerUrl("");
+    } else {
+      let url = `/movie/${movie.movie.id}/videos?api_key=9abece2b3fd2ebefc230ea2ce46c4bef`;
+
+      axios
+        .get(url)
+        .then((res) => {
+          setTrailerUrl(res.data.results[0]?.key);
+        })
+        .catch((error) =>{
+          console.log(error);
+          toast.error("Sorry trailer is not available 😥", {position: 'top-center'});
+        });
+    }
+  };
 
   const removeMovieFromWatchList = (id) => {
     if (
@@ -68,7 +96,7 @@ function WatchList() {
             />
             <div className="movie__info">
               <div>
-                <PlayArrow className="tag movie__note" />
+                <PlayArrow className="tag movie__note" onClick={() => handleClick(movie)}/>
                 <Clear
                   className="tag movie__note"
                   onClick={() => removeMovieFromWatchList(movie.movie.id)}
@@ -82,6 +110,11 @@ function WatchList() {
           </div>
         ))}
       </div>
+      {trailerUrl && (
+        <div className="backdrop" onClick={() => setTrailerUrl("")}>
+          <YouTube videoId={trailerUrl} opts={opts} className="youtube__trailer"/>
+        </div>
+      )}
       {selectedMovie && <Modal selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
     </div>
   );

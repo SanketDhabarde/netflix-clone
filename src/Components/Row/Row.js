@@ -7,6 +7,9 @@ import db from "../../firebase";
 import { AuthContext } from "../../context/auth-context";
 import firebase from 'firebase/app';
 import {toast} from 'react-toastify';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { PlayArrow } from "@material-ui/icons";
+import Modal from "../Modal/Modal";
 
 
 const baseImgUrl = "https://image.tmdb.org/t/p/original";
@@ -14,6 +17,7 @@ const baseImgUrl = "https://image.tmdb.org/t/p/original";
 function Row({tv, title, fetchURL, isLargeRow }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
@@ -51,7 +55,10 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         .then((res) => {
           setTrailerUrl(res.data.results[0]?.key);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          toast.error("Sorry trailer is not available 😥", {position: 'top-center'});
+        });
       }else{
         axios
         .get(
@@ -60,7 +67,10 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         .then((res) => {
           setTrailerUrl(res.data.results[0]?.key);
         })
-        .catch((error) => console.log(error));
+        .catch((error) =>{
+          console.log(error);
+          toast.error("Sorry trailer is not available 😥", {position: 'top-center'});
+        });
       }
       
     }
@@ -75,36 +85,41 @@ function Row({tv, title, fetchURL, isLargeRow }) {
         movie,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       });
-      
-      if(tv){
-        toast.success("Show Added to your watchlist successfully", {position: 'top-center'});
-      }else{
-        toast.success("Movie Added to your watchlist successfully", {position: 'top-center'});
-      }
-      
+      toast.success(`${movie.name} Added to your watchlist successfully`, {position: 'top-center'});
     }
   };
+
+  const moreInfoHandler = (movie) =>{
+    if(movie){
+        setSelectedMovie(movie);
+    }
+  }
 
   return (
     <div className="row">
       <h2>{title}</h2>
       <div className="row__posters">
         {movies?.map((movie) => (
-          <>
+          <div className="row__poster" key={movie.id}>
             <img
-              key={movie.id}
-              className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-              onClick={() => handleClick(movie)}
+              className={`${isLargeRow && "row__posterLarge"}`}
               src={`${baseImgUrl}${
                 isLargeRow ? movie.poster_path : movie.backdrop_path
               }`}
               alt={movie.title}
             />
-            <AddIcon onClick={() => addMovieToWatchList(movie)} className="row__posterAdd"/>
-          </>
+            <div className="row__posterInfo">
+              <div>
+                <PlayArrow className="tag" style={{marginRight: "0.5rem"}} onClick={() => handleClick(movie)}/>
+                <AddIcon onClick={() => addMovieToWatchList(movie)} className="tag"/>
+              </div>
+              <ExpandMoreIcon className="tag" onClick={() => moreInfoHandler(movie)}/>
+            </div>
+          </div>
         ))}
       </div>
       {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+      {selectedMovie && <Modal selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie}/>}
     </div>
   );
 }

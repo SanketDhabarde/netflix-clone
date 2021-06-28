@@ -45,9 +45,13 @@
     width: 20px;
 }
 .login__footerFaded{
-    height: 11.5rem;
+    height: 7rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background-image: linear-gradient(
-      180deg,
+      to bottom,
       transparent,
       rgba(37, 37, 37, 0.61),
       #111
