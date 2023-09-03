@@ -15,4 +15,4 @@
 4. Firebase firestore to store your list
 5. Material-ui for icons
 
-[live link](https://movie-app-1c1e7.web.app/)
+[live link](https://always-flix.netlify.app/)
